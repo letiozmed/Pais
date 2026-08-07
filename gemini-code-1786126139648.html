@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensagens Especiais - Dia dos Pais</title>
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --accent-color: #d97706;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-color: #1f2937;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Cabeçalho */
+        header {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            color: #6b7280;
+            font-size: 1rem;
+        }
+
+        /* Container Principal do Cartão Interativo */
+        .story-container {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 600px;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            position: relative;
+            margin: 20px 0;
+            transition: all 0.4s ease;
+        }
+
+        /* Indicador de Páginas/Passos (Ex: 1 de 5) */
+        .step-indicator {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Ícone ilustrativo */
+        .story-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        /* Texto da Mensagem */
+        .story-text {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: var(--text-color);
+            min-height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Controles (Botões) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .btn {
+            flex: 1;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.1s ease;
+        }
+
+        .btn:hover {
+            background-color: #254b7e;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background-color: #e5e7eb;
+            color: #4b5563;
+        }
+
+        .btn-secondary:hover {
+            background-color: #d1d5db;
+        }
+
+        .btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* Animação suave de transição */
+        .fade {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header>
+        <h1>Jornada do Dia dos Pais</h1>
+        <p>Uma pequena homenagem em etapas para você</p>
+    </header>
+
+    <!-- Cartão de Mensagens Progressivas -->
+    <main class="story-container">
+        <div class="step-indicator" id="stepIndicator">Passo 1 de 6</div>
+        <div class="story-icon" id="storyIcon">
+            <i class="fa-solid fa-seedling"></i>
+        </div>
+        <div class="story-text fade" id="storyText">
+            Carregando mensagem...
+        </div>
+
+        <!-- Botões de Navegação -->
+        <div class="controls">
+            <button class="btn btn-secondary" id="prevBtn" onclick="mudarPasso(-1)">⬅️ Voltar</button>
+            <button class="btn" id="nextBtn" onclick="mudarPasso(1)">Próxima Mensagem ➡️</button>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>Feito com ❤️ especialmente para o meu Pai.</p>
+    </footer>
+
+    <script>
+        // Lista com os passos, ícones e textos da jornada
+        const mensagens = [
+            {
+                icone: "fa-seedling",
+                texto: "Pai, obrigado por plantar as melhores sementes na minha vida e me ensinar o caminho do bem desde pequeno."
+            },
+            {
+                icone: "fa-compass",
+                texto: "Nos momentos de dúvida, você sempre foi a bússola certa, apontando a direção com sabedoria e paciência."
+            },
+            {
+                icone: "fa-shield-halved",
+                texto: "Sua presença sempre foi meu porto seguro. Saber que posso contar com você me dá coragem para enfrentar qualquer desafio."
+            },
+            {
+                icone: "fa-face-smile-beam",
+                texto: "Obrigado pelas risadas, pelas brincadeiras e por transformar dias cinzentos em momentos leves e felizes."
+            },
+            {
+                icone: "fa-medal",
+                texto: "Você é o meu maior exemplo de caráter, honestidade e dedicação. Tenho muito orgulho de carregar o seu legado."
+            },
+            {
+                icone: "fa-heart",
+                texto: "Feliz Dia dos Pais! Que este dia seja repleto de carinho. Eu te amo muito hoje e sempre! ❤️"
+            }
+        ];
+
+        let passoAtual = 0;
+
+        const textElement = document.getElementById("storyText");
+        const iconElement = document.getElementById("storyIcon");
+        const indicatorElement = document.getElementById("stepIndicator");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+
+        function atualizarTela() {
+            // Adiciona efeito de fade suave ao mudar
+            textElement.classList.remove("fade");
+            void textElement.offsetWidth; // Reinicia a animação CSS
+            textElement.classList.add("fade");
+
+            // Atualiza os conteúdos de acordo com o índice atual
+            textElement.textContent = mensagens[passoAtual].texto;
+            iconElement.innerHTML = `<i class="fa-solid ${mensagens[passoAtual].icone}"></i>`;
+            indicatorElement.textContent = `Passo ${passoAtual + 1} de ${mensagens.length}`;
+
+            // Controle de estado dos botões
+            prevBtn.disabled = passoAtual === 0;
+            
+            if (passoAtual === mensagens.length - 1) {
+                nextBtn.textContent = "Recomeçar 🔄";
+            } else {
+                nextBtn.textContent = "Próxima Mensagem ➡️";
+            }
+        }
+
+        function mudarPasso(direcao) {
+            passoAtual += direcao;
+
+            // Se passar do último passo, recomeça do zero
+            if (passoAtual >= mensagens.length) {
+                passoAtual = 0;
+            }
+
+            atualizarTela();
+        }
+
+        // Inicializa o site na primeira mensagem
+        atualizarTela();
+    </script>
+</body>
+</html>
